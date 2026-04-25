@@ -1,15 +1,10 @@
-# 1. CSSを使ったMarkdownサンプル
-
+---
+title: CSSを使ったMarkdownサンプル
+---
 以下は、Markdown内でCSSを活用する詳しいサンプルです。
 
 > 注意: Markdownレンダラーによっては、HTMLタグや`<style>`ブロックの使用が制限される場合があります。GitHubのような一般的なレンダラーでは、`<style>`は無効化されることがあります。
 
-- [1. CSSを使ったMarkdownサンプル](#1-cssを使ったmarkdownサンプル)
-  - [1.1. 基本的な装飾](#11-基本的な装飾)
-    - [1.1.1. CSSクラス付きのセクション](#111-cssクラス付きのセクション)
-  - [1.2. アラートや注意書き](#12-アラートや注意書き)
-  - [1.3. Markdown記法の詳細](#13-markdown記法の詳細)
-    - [1.3.1. 見出し（H1～H6）](#131-見出しh1h6)
 - [2. 見出し H1](#2-見出し-h1)
   - [2.1. 見出し H2](#21-見出し-h2)
     - [2.1.1. 見出し H3](#211-見出し-h3)
@@ -31,7 +26,12 @@
   - [3.5. Markdownの右寄せ表記法](#35-markdownの右寄せ表記法)
     - [3.5.1. 表を右寄せ風に見せる補助テク](#351-表を右寄せ風に見せる補助テク)
   - [3.6. 印刷を考慮したMarkdownとCSS](#36-印刷を考慮したmarkdownとcss)
-  - [3.7. まとめ](#37-まとめ)
+  - [3.7. Markdown All in One の TOC](#37-markdown-all-in-one-の-toc)
+  - [3.8. 図解: Excalidraw と Mermaid](#38-図解-excalidraw-と-mermaid)
+    - [3.8.1. Excalidraw の埋め込み記法](#381-excalidraw-の埋め込み記法)
+    - [3.8.2. Mermaid クラス図](#382-mermaid-クラス図)
+    - [3.8.3. Mermaid シーケンス図](#383-mermaid-シーケンス図)
+  - [3.9. まとめ](#39-まとめ)
 
 ## 1.1. 基本的な装飾
 
@@ -250,7 +250,96 @@ Markdown自体で「表全体を画面右側に寄せる」記法はありませ
 
 ---
 
-## 3.7. まとめ
+## 3.7. Markdown All in One の TOC
+
+Markdown All in One 拡張機能では、Markdown ドキュメントへ自動目次（TOC）を挿入できます。一般的な書き方は次のとおりです。
+
+```markdown
+[TOC]
+```
+
+または小文字でも同じように動作します。
+
+- `Markdown All in One: Create Table of Contents` を実行すると、現在の見出し構造に基づいた目次が挿入されます
+- `Update Table of Contents` で見出しを更新できます
+- 目次は見出しテキストからアンカーリンクを作成し、ドキュメント内の該当節へ移動します
+
+例:
+
+```markdown
+[TOC]
+
+## 1. はじめに
+## 2. 説明
+```
+
+生成される目次例:
+
+- [1. はじめに](#1-はじめに)
+- [2. 説明](#2-説明)
+
+## 3.8. 図解: Excalidraw と Mermaid
+
+Markdown では、Excalidraw や Mermaid を使って図を埋め込むことができます。両方とも拡張機能を有効にした環境で使います。
+
+### 3.8.1. Excalidraw の埋め込み記法
+
+Excalidraw を Markdown でプレビュー表示するには、実際の `.excalidraw` ファイルを用意し、リンクまたは画像参照で呼び出します。VS Code で Excalidraw 拡張がインストールされていれば、プレビューで描画が確認できます。
+
+例: Markdown に直接リンクしてプレビューする方法
+
+```markdown
+![Excalidraw 図](./diagram.excalidraw)
+```
+
+または、リンクをクリックして専用ビューで開く方法:
+
+```markdown
+[Excalidraw 図を開く](./diagram.excalidraw)
+```
+
+このリポジトリには `diagram.excalidraw` が追加されています。VS Code の Excalidraw 拡張で開くと、以下のような図がプレビュー表示されます。
+
+### 3.8.2. Mermaid クラス図
+
+Mermaid のクラス図は `classDiagram` キーワードから始めます。クラス定義と関係を記述して、クラス構造を描画します。
+
+```mermaid
+classDiagram
+  class User {
+    +String name
+    +String email
+    +login()
+  }
+  class Admin
+  User <|-- Admin
+  User *-- Role
+```
+
+- `+` は public、`-` は private、`#` は protected を表します
+- `A <|-- B` は `B` が `A` を継承する関係です
+- `A *-- B` は集約、`A o-- B` は依存関係を表します
+
+### 3.8.3. Mermaid シーケンス図
+
+Mermaid シーケンス図は `sequenceDiagram` キーワードを使います。参加者を定義し、矢印でメッセージを表現します。
+
+```mermaid
+sequenceDiagram
+  participant Alice
+  participant Bob
+  Alice->>Bob: こんにちは、Bob
+  Bob-->>Alice: こんにちは、Alice
+  Note right of Bob: Bob はこのメッセージを処理中
+```
+
+- `->>` は同期メッセージ、`-->>` は非同期メッセージの表現です
+- `Note left of` / `Note right of` でメモ注釈を追加できます
+- `activate` / `deactivate` でライフラインの強調が可能です
+
+---
+
+## 3.9. まとめ
 
 このサンプルでは、Markdownに以下のようなCSSを組み込む方法を示しました。
 
